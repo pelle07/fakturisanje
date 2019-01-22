@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FaktureModelStoreContainer" CdmEntityContainer="FaktureEntities">
+    <EntitySetMapping Name="Fakturas">
+      <EntityTypeMapping TypeName="FaktureModel.Faktura">
+        <MappingFragment StoreEntitySet="Faktura">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="number" ColumnName="number" />
+          <ScalarProperty Name="date_created" ColumnName="date_created" />
+          <ScalarProperty Name="total" ColumnName="total" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stavkas">
+      <EntityTypeMapping TypeName="FaktureModel.Stavka">
+        <MappingFragment StoreEntitySet="Stavka">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="faktura_id" ColumnName="faktura_id" />
+          <ScalarProperty Name="faktura_number" ColumnName="faktura_number" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="unit_price" ColumnName="unit_price" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

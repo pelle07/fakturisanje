@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FaktureModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Faktura">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="number" Type="Int32" Nullable="false" />
+    <Property Name="date_created" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="total" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Stavkas" Relationship="Self.FK_Stavka_Faktura" FromRole="Faktura" ToRole="Stavka" />
+  </EntityType>
+  <EntityType Name="Stavka">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="faktura_id" />
+      <PropertyRef Name="faktura_number" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="unit_price" />
+      <PropertyRef Name="quantity" />
+      <PropertyRef Name="total_cost" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="faktura_id" Type="Int32" Nullable="false" />
+    <Property Name="faktura_number" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="unit_price" Type="Double" Nullable="false" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+    <Property Name="total_cost" Type="Double" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+    <NavigationProperty Name="Faktura" Relationship="Self.FK_Stavka_Faktura" FromRole="Stavka" ToRole="Faktura" />
+  </EntityType>
+  <Association Name="FK_Stavka_Faktura">
+    <End Role="Faktura" Type="Self.Faktura" Multiplicity="1" />
+    <End Role="Stavka" Type="Self.Stavka" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Faktura">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Stavka">
+        <PropertyRef Name="faktura_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FaktureEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Fakturas" EntityType="Self.Faktura" />
+    <EntitySet Name="Stavkas" EntityType="Self.Stavka" />
+    <AssociationSet Name="FK_Stavka_Faktura" Association="Self.FK_Stavka_Faktura">
+      <End Role="Faktura" EntitySet="Fakturas" />
+      <End Role="Stavka" EntitySet="Stavkas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

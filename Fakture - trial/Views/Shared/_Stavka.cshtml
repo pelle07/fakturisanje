@@ -1,0 +1,39 @@
+﻿@model  System.Data.DataTable
+
+<h1> Lista svih stavki</h1>
+<div class="row">
+    <div class="container">
+         <button class="pull-right btn btn-default" >@Html.ActionLink("Nazad na Fakture", "Index", "Fakture")</button>
+        <a class="pull-left btn btn-default" href="@Url.Action("Edit", "Fakture",new { id = Model.Rows[0][1] })">Nazad na izmenu fakture</a>
+    </div>
+</div>
+<div class="row">
+    <div class="container">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <td>Broj fakture</td>
+                <td>Ime stavke</td>
+                <td>Cena po jedinici</td>
+                <td>Kolicina</td>
+                <td>Ukupno</td>
+                <td width="20%"></td>
+            </tr>
+            
+            @for (int i = 0; i < Model.Rows.Count; i++)
+            {
+                <tr>
+                    
+                    <td>@Model.Rows[i][1]</td>
+                    <td>@Model.Rows[i][2]</td>
+                    <td>@Model.Rows[i][3]</td>
+                    <td>@Model.Rows[i][4]</td>
+                    <td>@Model.Rows[i][5]</td>
+                    <td>
+                        <button class="btn btn-default"><a href="@Url.Action("Edit","Stavka",new { id = Model.Rows[i][0] })" class="glyphicon glyphicon-edit"> Izmeni</a></button>
+                        <button class="btn btn-default"><a href="@Url.Action("Delete","Stavka",new { id = Model.Rows[i][0] ,fid = Model.Rows[i][1]})" class="glyphicon glyphicon-remove-circle"> Delete</a></button>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
